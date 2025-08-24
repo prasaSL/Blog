@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -20,15 +21,18 @@ import Divider from "@mui/material/Divider";
 import PersonIcon from "@mui/icons-material/Person";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
+import LoginIcon from "@mui/icons-material/Login";
 import "../../index.css";
 import "./header.css";
 import { useAuth } from '../../context/AuthContext';
+
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const theme = useTheme();
   const { user, logout } = useAuth();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const navigate = useNavigate();
 
   const isMenuOpen = Boolean(anchorEl);
 
@@ -37,6 +41,11 @@ export default function Header() {
   };
 
   const handleProfileMenuOpen = (event) => {
+    if (!user) {
+      // If not logged in, redirect to login page
+      navigate("/login");
+      return;
+    }
     setAnchorEl(event.currentTarget);
   };
 
@@ -45,9 +54,12 @@ export default function Header() {
   };
 
   const handleLogout = () => {
-    // Add logout logic here
     logout();
     handleMenuClose();
+  };
+
+  const handleLogin = () => {
+    navigate("/user-login");
   };
 
   const navItems = ["About", "Contact"];
@@ -67,16 +79,29 @@ export default function Header() {
           </ListItem>
         ))}
         <Divider sx={{ bgcolor: "rgba(255,255,255,0.2)", my: 1 }} />
-        <ListItem disablePadding>
-          <ListItemButton onClick={handleLogout}>
-            <LogoutIcon sx={{ mr: 1, color: "white" }} />
-            <ListItemText
-              primary="Logout"
-              className="drawer-list-item"
-              primaryTypographyProps={{ style: { fontSize: "1.1rem" } }}
-            />
-          </ListItemButton>
-        </ListItem>
+        {user ? (
+          <ListItem disablePadding>
+            <ListItemButton onClick={handleLogout}>
+              <LogoutIcon sx={{ mr: 1, color: "white" }} />
+              <ListItemText
+                primary="Logout"
+                className="drawer-list-item"
+                primaryTypographyProps={{ style: { fontSize: "1.1rem" } }}
+              />
+            </ListItemButton>
+          </ListItem>
+        ) : (
+          <ListItem disablePadding>
+            <ListItemButton onClick={handleLogin}>
+              <LoginIcon sx={{ mr: 1, color: "white" }} />
+              <ListItemText
+                primary="Login"
+                className="drawer-list-item"
+                primaryTypographyProps={{ style: { fontSize: "1.1rem" } }}
+              />
+            </ListItemButton>
+          </ListItem>
+        )}
       </List>
     </Box>
   );
@@ -131,34 +156,45 @@ export default function Header() {
         </div>
 
         {/* Right: Navigation - Desktop */}
-       <div className="nav-section">
-  {!isMobile && (
-    <div className="nav-links">
-      {navItems.map((item) => (
-        <Button key={item} className="nav-button">
-          {item}
-        </Button>
-      ))}
-    </div>
-  )}
-  
-  {/* User Account Button - MOVED OUTSIDE the isMobile condition */}
-  <IconButton
-    edge="end"
-    aria-label="account of current user"
-    aria-controls={userMenuId}
-    aria-haspopup="true"
-    onClick={handleProfileMenuOpen}
-    color="inherit"
-    className="user-account-button"
-    sx={{ borderRadius: '30px' }}
-  >
-    <div className="user-account">
-      <Avatar className="user-avatar">JS</Avatar>
-      <div className="username">{user?.name}</div>
-    </div>
-  </IconButton>
-</div>
+        <div className="nav-section">
+          {!isMobile && (
+            <div className="nav-links">
+              {navItems.map((item) => (
+                <Button key={item} className="nav-button">
+                  {item}
+                </Button>
+              ))}
+            </div>
+          )}
+          
+          {/* User Account Button or Login Button */}
+          {user ? (
+            <IconButton
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={userMenuId}
+              aria-haspopup="true"
+              onClick={handleProfileMenuOpen}
+              color="inherit"
+              className="user-account-button"
+              sx={{ borderRadius: '30px' }}
+            >
+              <div className="user-account">
+                <Avatar className="user-avatar">{user.name ? user.name.charAt(0) : 'U'}</Avatar>
+                <div className="username">{user.name}</div>
+              </div>
+            </IconButton>
+          ) : (
+            <Button 
+              color="inherit" 
+              onClick={handleLogin}
+              startIcon={<LoginIcon />}
+              className="login-header"
+            >
+              Login
+            </Button>
+          )}
+        </div>
       </Toolbar>
 
       {/* Mobile Navigation Drawer */}
@@ -177,8 +213,8 @@ export default function Header() {
         {drawer}
       </Drawer>
 
-      {/* User Menu Dropdown */}
-      {renderUserMenu}
+      {/* User Menu Dropdown - Only render if user is logged in */}
+      {user && renderUserMenu}
     </AppBar>
   );
 }

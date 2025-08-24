@@ -12,24 +12,31 @@ import {
   IconButton,
   InputAdornment,
   Alert,
-  Paper
+  Paper,
+  CircularProgress
 } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import LockIcon from '@mui/icons-material/Lock';
+import EmailIcon from '@mui/icons-material/Email';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import './adminLogin.css';
+import api from '../../utils/api';
+import { useAuth } from '../../context/AuthContext';
 
 export default function AdminLogin() {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
-    username: '',
+    email: '',
     password: '',
     rememberMe: false
   });
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleChange = (e) => {
     const { name, value, checked } = e.target;
@@ -39,21 +46,56 @@ export default function AdminLogin() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     
     // Simple validation
-    if (!formData.username || !formData.password) {
-      setError('Please enter both username and password');
+    if (!formData.email || !formData.password) {
+      setError('Please enter both email and password');
       return;
     }
     
-    console.log('Admin login attempted with:', formData);
-    // Add your admin authentication logic here
-    
-    // For demo, show error (you would replace this with actual auth)
-    setError('Invalid administrator credentials');
+    try {
+      setLoading(true);
+      
+      // Make API request to admin login endpoint with email instead of username
+      const response = await api.post('/users/admin/login', {
+        email: formData.email,
+        password: formData.password
+      });
+      
+      if (response.status === 200) {
+        // Store user data in context
+        login(response.data.user);
+  
+        
+        // Navigate to admin panel
+        navigate('/admin-panel');
+      } else {
+        setError(response.data.message || 'Login failed');
+      }
+    } catch (err) {
+      console.error('Admin login error:', err);
+      
+      if (err.response) {
+        // Handle different status codes
+        switch (err.response.status) {
+          case 401:
+            setError('Invalid email or password');
+            break;
+          case 403:
+            setError('Your account doesn\'t have admin privileges');
+            break;
+          default:
+            setError(err.response.data?.message || 'An error occurred during login');
+        }
+      } else {
+        setError('Unable to connect to the server. Please try again later.');
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   const togglePasswordVisibility = () => {
@@ -91,13 +133,22 @@ export default function AdminLogin() {
             <form onSubmit={handleSubmit} className="admin-login-form">
               <TextField
                 fullWidth
-                label="Username"
+                label="Email"
                 variant="outlined"
-                name="username"
-                value={formData.username}
+                name="email"
+                type="email"
+                value={formData.email}
                 onChange={handleChange}
                 required
                 className="admin-input"
+                disabled={loading}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <EmailIcon className="admin-email-icon" />
+                    </InputAdornment>
+                  ),
+                }}
               />
               
               <TextField
@@ -110,6 +161,7 @@ export default function AdminLogin() {
                 onChange={handleChange}
                 required
                 className="admin-input"
+                disabled={loading}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
@@ -117,6 +169,7 @@ export default function AdminLogin() {
                         aria-label="toggle password visibility"
                         onClick={togglePasswordVisibility}
                         edge="end"
+                        disabled={loading}
                       >
                         {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
                       </IconButton>
@@ -137,6 +190,7 @@ export default function AdminLogin() {
                     checked={formData.rememberMe}
                     onChange={handleChange}
                     color="primary"
+                    disabled={loading}
                   />
                 }
                 label="Remember this device"
@@ -148,8 +202,13 @@ export default function AdminLogin() {
                 fullWidth
                 variant="contained"
                 className="admin-login-button"
+                disabled={loading}
               >
-                Secure Login
+                {loading ? (
+                  <CircularProgress size={24} color="inherit" />
+                ) : (
+                  'Secure Login'
+                )}
               </Button>
             </form>
 

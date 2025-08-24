@@ -17,6 +17,18 @@
   
 }
 
+.login-header {
+  color: white !important;
+  text-transform: none !important;
+  transition: color 0.3s ease;
+  font-size: 1.2rem !important;
+
+}
+
+.login-header:hover {
+  color: var(--accent-color) !important;
+}
+
 /* Logo section */
 .logo-section {
   display: flex;
