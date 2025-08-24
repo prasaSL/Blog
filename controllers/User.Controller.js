@@ -8,8 +8,8 @@ exports.signUp = async (req, res, next)=>{
         const { username, email, password } = req.body;
 
         // Validate input
-        if (!email || !password) {
-            return res.status(400).json({ message: 'Email and password are required' });
+        if (!email || !password || !username) {
+            return res.status(400).json({ message: 'Email, password, and username are required' });
         }
 
         // Check if user already exists
@@ -27,7 +27,11 @@ exports.signUp = async (req, res, next)=>{
 
         // Create user
         const user = await User.create({ name: username, email, password });
-        res.status(201).json(user);
+        res.status(201).json({
+            id: user.id,
+            email: user.email,
+            role: user.role
+        });
     } catch (error) {
         next(error);
     }

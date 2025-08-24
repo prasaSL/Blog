@@ -3,11 +3,13 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const fileUpload = require('express-fileupload');
+const cookieParser = require('cookie-parser');
 const path = require('path');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const { connectDB } = require('./config/database');
 const userRoutes = require('./routes/User.route');
+const postRoutes = require('./routes/Post.route');
 
 const errorHandler = require('./middleware/errorHandler');
 
@@ -24,10 +26,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // Enable CORS
 app.use(cors());
-
-// Mount user routes
-app.use('/api/users', userRoutes);
-
+app.use(cookieParser());
 
 
 // Security headers
@@ -62,6 +61,10 @@ app.get('/api/health', (req, res) => {
     timestamp: new Date().toISOString()
   });
 });
+
+// Mount routes
+app.use('/api/users', userRoutes);
+app.use('/api/posts', postRoutes);
 
 // Handle 404 routes
 app.use('*', (req, res) => {

@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { User } = require("../models/User.model");
+const  User  = require("../models/User.model");
 
 
 class ErrorHandler extends Error {
@@ -16,6 +16,10 @@ const Authorization = (requiredRoles ) => {
       const token = req.cookies.accessToken;
       const refreshToken = req.cookies.refreshToken;
 
+      console.log('Access Token:', token);
+      console.log('Refresh Token:', refreshToken);
+      console.log('Request body:', req.body);
+
       if (!token) {
         // If no access token but refresh token exists, try to refresh
         if (refreshToken) {
@@ -27,7 +31,8 @@ const Authorization = (requiredRoles ) => {
             
             // Find user
             const user = await User.findByPk(decoded.id);
-            if (!user || !user.isActive) {
+            console.log('Found user:', user);
+            if (!user) {
               return next(new ErrorHandler(401, "User not found or inactive"));
             }
 
@@ -40,11 +45,7 @@ const Authorization = (requiredRoles ) => {
             // Check role
             if (requiredRoles.includes(user.role)) {
               // Generate new access token
-              const newToken = jwt.sign(
-                { id: user.id, email: user.email, role: user.role },
-                process.env.JWT_SECRET,
-                { expiresIn: "1h" }
-              );
+              const newToken = user.generateJWT();
               
               // Set new token as cookie
               res.cookie('accessToken', newToken, {
@@ -74,7 +75,7 @@ const Authorization = (requiredRoles ) => {
         
         // Find user
         const user = await User.findByPk(decoded.id);
-        if (!user || !user.isActive) {
+        if (!user) {
           res.clearCookie('accessToken');
           return next(new ErrorHandler(401, "User not found or inactive"));
         }

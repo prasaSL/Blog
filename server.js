@@ -1,5 +1,5 @@
 const app = require('./app');
-const { sequelize } = require('./config/database');
+const { sequelize, connectDB } = require('./config/database');
 const dotenv = require('dotenv');
 const seedAdminUser = require('./utils/seeder/adminSeeder');
 
@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 5000;
 const syncDatabase = async () => {
   try {
     
-    await sequelize.sync({ force: false, alter: true });
+ await sequelize.sync({ force: false });
     console.log('Database synced');
     
     await seedAdminUser();
