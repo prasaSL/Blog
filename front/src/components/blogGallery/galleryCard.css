@@ -1,0 +1,9 @@
+.gallery-card {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Remove any margins from the card that might break the grid */
+.MuiCard-root.gallery-card {
+  margin: 0 !important;
+}

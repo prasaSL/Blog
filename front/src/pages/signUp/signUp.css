@@ -1,0 +1,144 @@
+@import '../../index.css';
+
+.signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  padding: 2rem 1rem;
+}
+
+.signup-card {
+  max-width: 450px;
+  width: 100%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1) !important;
+  border-radius: 12px !important;
+}
+
+.signup-card-content {
+  padding: 2.5rem !important;
+}
+
+.signup-title {
+  color: var(--secondary-color);
+  font-weight: 700 !important;
+  margin-bottom: 0.5rem !important;
+  text-align: center;
+}
+
+.signup-subtitle {
+  color: var(--muted-text-color);
+  margin-bottom: 2rem !important;
+  text-align: center;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.signup-input .MuiOutlinedInput-root {
+  border-radius: 8px;
+}
+
+.signup-input .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: var(--accent-color);
+}
+
+.terms-checkbox {
+  margin-top: 0.5rem;
+}
+
+.terms-link {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.terms-link:hover {
+  color: var(--highlight-color);
+  text-decoration: underline;
+}
+
+.signup-button {
+  background-color: var(--accent-color) !important;
+  color: white !important;
+  padding: 0.75rem 0 !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  font-size: 1rem !important;
+  margin-top: 1rem !important;
+  transition: background-color 0.3s !important;
+}
+
+.signup-button:hover {
+  background-color: var(--highlight-color) !important;
+}
+
+.signup-button:disabled {
+  background-color: rgba(0, 0, 0, 0.12) !important;
+  color: rgba(0, 0, 0, 0.26) !important;
+}
+
+.signup-divider {
+  margin: 2rem 0 !important;
+}
+
+.social-signup {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.social-button {
+  border: 1px solid var(--border-color) !important;
+  border-radius: 50% !important;
+  padding: 0.75rem !important;
+  transition: all 0.3s !important;
+}
+
+.social-button:hover {
+  transform: translateY(-3px);
+}
+
+.google:hover {
+  color: #DB4437 !important;
+  border-color: #DB4437 !important;
+}
+
+.facebook:hover {
+  color: #4267B2 !important;
+  border-color: #4267B2 !important;
+}
+
+.github:hover {
+  color: #333 !important;
+  border-color: #333 !important;
+}
+
+.login-prompt {
+  text-align: center;
+  color: var(--muted-text-color);
+}
+
+.login-link {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.login-link:hover {
+  color: var(--highlight-color);
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .signup-card-content {
+    padding: 1.5rem !important;
+  }
+}

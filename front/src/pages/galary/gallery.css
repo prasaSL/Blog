@@ -1,0 +1,51 @@
+
+
+
+.gallery-app-bar {
+  background-color: var(--primary-color) !important;
+
+}
+
+/* Add this with higher specificity */
+.MuiAppBar-root.gallery-app-bar {
+  background-color: var(--primary-color) !important;
+}
+
+
+.gallery-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+}
+
+.gallery-Search-bar {
+  display: flex;
+  align-items: center;
+  background-color: var(--search-bar-bg);
+  border-radius: 4px;
+  padding: 4px 8px;
+}
+
+.gallery-Search-icon {
+  color: var(--search-icon-color);
+}
+
+.gallery-Search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 4px 8px;
+  background-color: transparent;
+}
+
+
+.gallery-container{
+    padding-top: 5rem;
+    padding-bottom: 2rem;
+    text-align: center;
+}
+
+.gallery-pagination{
+    margin-top: 2rem;
+}

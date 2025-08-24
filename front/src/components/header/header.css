@@ -1,0 +1,180 @@
+@import '../../index.css';
+
+/* AppBar styling */
+.custom-header {
+  background-color: var(--secondary-color) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Toolbar styling */
+.custom-toolbar {
+  display: flex !important;
+  justify-content: space-between !important;
+  margin: 0 auto !important;
+  width: 100% !important;
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+  
+}
+
+/* Logo section */
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Logo text styling */
+.logo-text {
+  font-weight: bold !important;
+  letter-spacing: 1px !important;
+  font-size: 2rem !important;
+}
+
+/* Navigation links */
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+/* Navigation buttons */
+.nav-button {
+  color: white !important;
+  text-transform: none !important;
+  transition: color 0.3s ease;
+  font-size: 1.2rem !important;
+}
+
+.nav-button:hover {
+  color: var(--accent-color) !important;
+}
+
+/* Mobile drawer styling */
+.mobile-drawer {
+  width: 240px;
+  padding-top: 16px;
+  background-color: var(--secondary-color) !important;
+  color: white !important;
+  height: 100% !important;
+}
+
+/* Drawer list item styling */
+.drawer-list-item {
+  color: white !important;
+}
+
+/* Drawer button hover effect */
+.MuiListItemButton-root:hover {
+  background-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.MuiListItemButton-root:hover .MuiListItemText-primary {
+  color: var(--accent-color) !important;
+  transition: color 0.3s ease;
+}
+
+/* Nav section */
+.nav-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: auto;
+}
+
+/* User account button */
+.user-account-button {
+  margin-left: 8px;
+  padding: 8px 12px !important; /* Add padding for better spacing */
+}
+
+.user-account {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 10px !important; /* Space between avatar and name */
+}
+
+/* Username text styling */
+.username {
+  color: white !important;
+  font-weight: 500 !important;
+  font-size: 1rem !important;
+  white-space: nowrap !important;
+}
+
+/* User avatar */
+.user-avatar {
+  background-color: var(--accent-color) !important;
+  color: white !important;
+  font-weight: bold !important;
+  width: 32px !important;
+  height: 32px !important;
+  font-size: 0.9rem !important;
+}
+
+/* User menu styling */
+.user-menu-paper {
+  background-color: white !important;
+  min-width: 200px !important;
+  margin-top: 8px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2) !important;
+}
+
+.user-menu-item {
+  padding: 10px 16px !important;
+  font-size: 1rem !important;
+}
+
+.menu-icon {
+  margin-right: 10px !important;
+  font-size: 1.2rem !important;
+}
+
+.logout-item {
+  color: #d32f2f !important;
+}
+
+.logout-item .menu-icon {
+  color: #d32f2f !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .custom-toolbar {
+    padding: 0 8px !important;
+    height: auto !important;
+  }
+  
+  .logo-text {
+    font-size: 1.1rem !important;
+  }
+  
+  /* Make username visible but smaller on mobile */
+  .username {
+    font-size: 0.8rem !important;
+    max-width: 80px !important; /* Limit width */
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+  
+  .user-avatar {
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 0.9rem !important;
+  }
+  
+  /* Adjust user account layout for small screens */
+  .user-account {
+    gap: 6px !important; /* Smaller gap on mobile */
+  }
+  
+  /* Make nav links take less space */
+  .nav-links {
+    gap: 10px;
+  }
+  
+  .nav-button {
+    font-size: 0.9rem !important;
+  }
+}

@@ -1,0 +1,122 @@
+@import '../../index.css';
+
+/* Main footer container */
+.footer {
+  background-color: var(--secondary-color);
+  color: white;
+  padding-top: 4rem;
+  padding-bottom: 2rem;
+  width: 100%;
+}
+
+.footer-container {
+  width: 100% !important;
+}
+
+.footer-content-wrapper {
+  width: 100%;
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+}
+
+/* Logo styling */
+.footer-logo {
+  font-weight: bold !important;
+  margin-bottom: 1rem !important;
+  letter-spacing: 1px !important;
+}
+
+/* Description text */
+.footer-description {
+  color: rgba(255, 255, 255, 0.7) !important;
+  margin-bottom: 1.5rem !important;
+  line-height: 1.6 !important;
+}
+
+/* Section headings */
+.footer-heading {
+  margin-bottom: 1.5rem !important;
+  font-weight: 600 !important;
+  position: relative !important;
+}
+
+.footer-heading::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 40px;
+  height: 2px;
+  background-color: var(--accent-color);
+}
+
+/* Links styling */
+.footer-link {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+  color: var(--accent-color) !important;
+}
+
+/* List items */
+.footer-list-item {
+  margin-bottom: 0.5rem !important;
+}
+
+/* Contact text */
+.contact-text {
+  color: rgba(255, 255, 255, 0.7) !important;
+  margin-bottom: 0.5rem !important;
+}
+
+/* Social media section */
+.social-icons {
+  display: flex;
+  margin-top: 1.5rem;
+}
+
+/* Social icon buttons */
+.social-icon {
+  color: white !important;
+  margin-right: 0.5rem !important;
+  transition: all 0.3s ease !important;
+}
+
+.social-icon:hover {
+  color: var(--accent-color) !important;
+  transform: translateY(-3px);
+}
+
+/* Divider */
+.footer-divider {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  margin: 2rem 0 !important;
+}
+
+/* Copyright section */
+.copyright-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Responsive styling */
+@media (max-width: 600px) {
+  .copyright-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+  }
+  
+  .footer-heading::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

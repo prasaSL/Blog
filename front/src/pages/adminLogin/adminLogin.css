@@ -1,0 +1,143 @@
+@import '../../index.css';
+
+.admin-login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  padding: 2rem 1rem;
+  background-color: #f8f9fa;
+}
+
+.back-link-container {
+  align-self: flex-start;
+  margin-bottom: 2rem;
+}
+
+.back-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--secondary-color);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.back-link:hover {
+  color: var(--accent-color);
+}
+
+.admin-login-paper {
+  max-width: 500px;
+  width: 100%;
+  background-color: white;
+  border-radius: 12px !important;
+  overflow: hidden;
+}
+
+.admin-header {
+  background-color: var(--secondary-color);
+  color: white;
+  padding: 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.admin-icon {
+  font-size: 3rem !important;
+  margin-bottom: 1rem;
+}
+
+.admin-title {
+  font-weight: 700 !important;
+  letter-spacing: 0.5px;
+}
+
+.admin-login-card {
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+.admin-login-card-content {
+  padding: 2rem !important;
+}
+
+.admin-login-subtitle {
+  color: var(--muted-text-color);
+  margin-bottom: 2rem !important;
+  text-align: center;
+}
+
+.admin-error-alert {
+  margin-bottom: 1.5rem !important;
+}
+
+.admin-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.admin-input .MuiOutlinedInput-root {
+  border-radius: 8px;
+}
+
+.admin-input .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: var(--secondary-color);
+  border-width: 2px;
+}
+
+.admin-lock-icon {
+  color: var(--secondary-color);
+}
+
+.admin-remember {
+  margin-top: 0.5rem;
+}
+
+.admin-login-button {
+  background-color: var(--secondary-color) !important;
+  color: white !important;
+  padding: 0.75rem 0 !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  font-size: 1rem !important;
+  margin-top: 1rem !important;
+  transition: background-color 0.3s !important;
+}
+
+.admin-login-button:hover {
+  background-color: var(--accent-color) !important;
+}
+
+.admin-help-text {
+  margin-top: 2rem !important;
+  text-align: center;
+  color: var(--muted-text-color);
+  font-size: 0.85rem !important;
+}
+
+.admin-footer {
+  padding: 1.5rem;
+  text-align: center;
+  background-color: #f7f7f7;
+  border-top: 1px solid #eaeaea;
+}
+
+@media (max-width: 600px) {
+  .admin-login-card-content {
+    padding: 1.5rem !important;
+  }
+  
+  .admin-header {
+    padding: 1.5rem;
+  }
+  
+  .admin-icon {
+    font-size: 2.5rem !important;
+  }
+}
