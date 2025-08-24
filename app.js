@@ -7,6 +7,7 @@ const path = require('path');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const { connectDB } = require('./config/database');
+const userRoutes = require('./routes/User.route');
 
 const errorHandler = require('./middleware/errorHandler');
 
@@ -18,12 +19,16 @@ const app = express();
 
 // Connect to database
 connectDB();
-
 // Body parser middleware
 app.use(express.json());
-
+app.use(express.urlencoded({ extended: true }));
 // Enable CORS
 app.use(cors());
+
+// Mount user routes
+app.use('/api/users', userRoutes);
+
+
 
 // Security headers
 app.use(helmet());
