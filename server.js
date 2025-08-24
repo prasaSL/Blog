@@ -1,6 +1,7 @@
 const app = require('./app');
 const { sequelize } = require('./config/database');
 const dotenv = require('dotenv');
+const seedAdminUser = require('./utils/seeder/adminSeeder');
 
 // Load env vars
 dotenv.config();
@@ -14,6 +15,8 @@ const syncDatabase = async () => {
     await sequelize.sync({ force: false, alter: true });
     console.log('Database synced');
     
+    await seedAdminUser();
+
     const server = app.listen(
       PORT, 
       console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`)
