@@ -200,13 +200,12 @@ exports.getUserPosts = async (req, res, next) => {
     // Get filter parameters
     const { search } = req.query;
     
-    // Build where clause
-    const whereClause = {};
-
-
-      whereClause.status ="published" ;
-
+    // Build where clause - always filter by published status
+    const whereClause = {
+      status: "published"  // This ensures only published posts are returned
+    };
     
+    // Add search criteria if provided (will be combined with status using AND)
     if (search) {
       whereClause[Op.or] = [
         { title: { [Op.like]: `%${search}%` } },
@@ -218,9 +217,9 @@ exports.getUserPosts = async (req, res, next) => {
     const totalCount = await Post.count({ where: whereClause });
     
     // Get posts with pagination
- const posts = await Post.findAll({
+    const posts = await Post.findAll({
       where: whereClause,
-      include: [{ model: User, attributes: ['id', 'name'] }],
+      include: [{ model: User, attributes: ['name'] }],
       order: [['createdAt', 'DESC']],
       limit,
       offset
@@ -257,7 +256,6 @@ exports.getUserPosts = async (req, res, next) => {
     next(error);
   }
 };
-
 
 
 

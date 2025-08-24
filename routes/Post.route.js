@@ -8,9 +8,9 @@ router.get("/all-list",Authorization(["admin"]), PostController.getAllPosts);
 router.put("/:id", Authorization(["admin"]), PostController.updatePost);
 router.delete("/:id", Authorization(["admin"]), PostController.deletePost);
 
-
-router.get("/:id", Authorization(["admin", "user"]), PostController.getPost);
 router.get("/posts", Authorization(["admin", "user"]), PostController.getUserPosts);
+router.get("/:id", Authorization(["admin", "user"]), PostController.getPost);
+
 
 
 module.exports = router;

@@ -22,11 +22,12 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 import "../../index.css";
 import "./header.css";
-
+import { useAuth } from '../../context/AuthContext';
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const theme = useTheme();
+  const { user, logout } = useAuth();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const isMenuOpen = Boolean(anchorEl);
@@ -45,7 +46,7 @@ export default function Header() {
 
   const handleLogout = () => {
     // Add logout logic here
-    console.log("Logging out...");
+    logout();
     handleMenuClose();
   };
 
@@ -154,7 +155,7 @@ export default function Header() {
   >
     <div className="user-account">
       <Avatar className="user-avatar">JS</Avatar>
-      <div className="username">John Smith</div>
+      <div className="username">{user?.name}</div>
     </div>
   </IconButton>
 </div>

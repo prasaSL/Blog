@@ -25,7 +25,12 @@ connectDB();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // Enable CORS
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173', // Vite's default port
+  credentials: true,               // Allow cookies to be sent
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(cookieParser());
 
 

@@ -90,7 +90,7 @@ const Authorization = (requiredRoles ) => {
         if (requiredRoles.includes(user.role)) {
           return next();
         } else {
-          return next(new ErrorHandler(403, "Insufficient permissions"));
+          return next(new ErrorHandler(401, "Insufficient permissions"));
         }
       } catch (error) {
         // Handle expired token

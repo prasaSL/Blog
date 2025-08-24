@@ -11,7 +11,8 @@ import {
   FormControlLabel, 
   Divider, 
   IconButton,
-  InputAdornment
+  InputAdornment,
+  Snackbar
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -20,8 +21,14 @@ import GoogleIcon from '@mui/icons-material/Google';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import './userLogin.css';
+import axios from 'axios';
+import { useAuth } from '../../context/authContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function UserLogin() {
+ const { login, showError } = useAuth();
+
+ const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -39,8 +46,20 @@ export default function UserLogin() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Login attempted with:', formData);
-    // Add your authentication logic here
+    axios.post(import.meta.env.VITE_API_URL + '/api/users/login', {
+      email: formData.email,
+      password: formData.password,
+      rememberMe: formData.rememberMe
+    }, { withCredentials: true })
+    .then(response => {
+      console.log('Login successful:', response.data);
+      login(response.data.user); 
+       navigate('/gallery');
+    })
+    .catch(error => {
+      console.error('Login failed:', error);
+      showError('Login failed: ' + (error.response?.data?.message || 'Unknown error'));
+    });
   };
 
   const togglePasswordVisibility = () => {
