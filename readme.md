@@ -90,14 +90,20 @@ A modern blog application built with React (Vite), Express.js, Sequelize, and My
 
 1. Go to `front/` and install dependencies:
 
-	```sh cd front npm install ```
+	```sh 
+    cd front npm install
+     ```
 
 2. Configure `front/.env`:
 
-	```VITE_API_URL=http://localhost:5000	```
+	```
+    VITE_API_URL=http://localhost:5000	
+    ```
 
 3. Start the frontend:
-	```sh npm run dev ```
+	```sh 
+    npm run dev
+     ```
 
 ## API Endpoints
 
