@@ -83,7 +83,7 @@ A modern blog application built with React (Vite), Express.js, Sequelize, and My
 	```
 4. Run the server:
 	```sh
-	npm run dev
+	npm run server
 	```
 
 ### Frontend Setup
@@ -105,6 +105,28 @@ A modern blog application built with React (Vite), Express.js, Sequelize, and My
     npm run dev
      ```
 
+## start front and backend same terminal 
+To start both backend and frontend together, use the following command in the root folder (requires `concurrently`):
+
+```sh
+npm run dev
+```
+
+This runs both the Express server and React frontend concurrently. Ensure you have the following in your `package.json` scripts:
+
+```json
+"scripts": {
+	"server": "node server.js",
+	"client": "cd front && npm run dev",
+	"dev": "concurrently \"npm run server\" \"npm run client\""
+}
+```
+
+If you haven't installed `concurrently`, run:
+
+```sh
+npm install concurrently --save-dev
+```
 ## API Endpoints
 
 - `POST /api/users/signup` - Register
@@ -116,6 +138,13 @@ A modern blog application built with React (Vite), Express.js, Sequelize, and My
 - `POST /api/posts/create` - Admin: create post
 - `PUT /api/posts/:id` - Admin: update post
 - `DELETE /api/posts/:id` - Admin: delete post
+
+
+The admin login page is available at:
+
+`/admin-login`
+
+---
 
 ## Assumptions and Limitations
 
