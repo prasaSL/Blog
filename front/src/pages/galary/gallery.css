@@ -6,7 +6,7 @@
 
 }
 
-/* Add this with higher specificity */
+
 .MuiAppBar-root.gallery-app-bar {
   background-color: var(--primary-color) !important;
 }
@@ -46,6 +46,13 @@
     text-align: center;
 }
 
+.gallery-card{
+  max-width: 25rem;
+}
+
+.gallery-masonry-container{
+  align-content: center !important
+}
 .gallery-pagination{
     margin-top: 2rem;
 }

@@ -20,18 +20,25 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import GoogleIcon from '@mui/icons-material/Google';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import { useAuth } from '../../context/authContext';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import './signUp.css';
 
 export default function SignUp() {
+  const { showError,showSuccess } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [passwordMatch, setPasswordMatch] = useState(true);
   const [formData, setFormData] = useState({
+    username: '',
     email: '',
     password: '',
     confirmPassword: '',
     agreeTerms: false
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value, checked } = e.target;
@@ -59,7 +66,21 @@ export default function SignUp() {
     }
     
     console.log('Sign up attempted with:', formData);
-    // Add your registration logic here
+    axios.post(import.meta.env.VITE_API_URL + '/api/users/signup', {
+      username: formData.username,
+      email: formData.email,
+      password: formData.password
+    }, { withCredentials: true })
+    .then(response => {
+      console.log('Registration successful:', response.data);
+      showSuccess('Registration successful! Please log in.');
+      navigate('/user-login');
+      
+    })
+    .catch(error => {
+      console.error('Registration failed:', error);
+      showError('Registration failed: ' + (error.response?.data?.message || 'Unknown error'));
+    });
   };
 
   const togglePasswordVisibility = () => {
@@ -82,6 +103,17 @@ export default function SignUp() {
           </Typography>
 
           <form onSubmit={handleSubmit} className="signup-form">
+             <TextField
+              fullWidth
+              label="User Name"
+              variant="outlined"
+              name="username"
+              type="text"
+              value={formData.username}
+              onChange={handleChange}
+              required
+              className="signup-input"
+            />
             <TextField
               fullWidth
               label="Email Address"

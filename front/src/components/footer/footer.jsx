@@ -91,13 +91,11 @@ export default function Footer() {
               <Typography variant="body2" className="contact-text">
                 Email: contact@myblog.com
               </Typography>
-              <Typography variant="body2" className="contact-text">
-                Location: New York, NY
-              </Typography>
+           
               
               {/* Social Media */}
               <Box className="social-icons">
-                {[FacebookIcon, TwitterIcon, InstagramIcon, LinkedInIcon, GitHubIcon].map((Icon, index) => (
+                {[FacebookIcon, InstagramIcon, LinkedInIcon, GitHubIcon].map((Icon, index) => (
                   <IconButton key={index} className="social-icon">
                     <Icon />
                   </IconButton>
@@ -114,7 +112,7 @@ export default function Footer() {
               © {currentYear} My Blog. All rights reserved.
             </Typography>
             <Typography variant="body2">
-              Designed with ❤️ by You
+              Designed with ❤️ by Prasad Madushan
             </Typography>
           </Box>
         </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   AppBar, 
   Toolbar, 
@@ -7,10 +7,11 @@ import {
   Box,
   Paper,
   Input, 
-  Grid,
   Pagination,
-  CircularProgress
+  CircularProgress,
+
 } from '@mui/material';
+import Masonry from '@mui/lab/Masonry';
 import SearchIcon from '@mui/icons-material/Search';
 import './gallery.css';
 import GalleryCard from '../../components/blogGallery/galleryCard';
@@ -28,7 +29,7 @@ export default function Gallery() {
   useEffect(() => {
     const timerId = setTimeout(() => {
       setDebouncedSearchTerm(searchTerm);
-    }, 500); // 500ms delay
+    }, 500); 
 
     return () => {
       clearTimeout(timerId);
@@ -37,13 +38,13 @@ export default function Gallery() {
 
   // Fetch posts when component mounts or when page/search changes
   useEffect(() => {
-    setPage(1); // Reset to page 1 when search changes
+    setPage(1); 
     fetchPosts(1, debouncedSearchTerm);
-  }, [debouncedSearchTerm]); // Re-fetch when search changes
+  }, [debouncedSearchTerm]); 
 
   // Handle page changes
   useEffect(() => {
-    if (debouncedSearchTerm === searchTerm) { // Only fetch if search term isn't being typed
+    if (debouncedSearchTerm === searchTerm) { 
       fetchPosts(page, debouncedSearchTerm);
     }
   }, [page]);
@@ -105,7 +106,7 @@ export default function Gallery() {
               className='gallery-Search-input'
               value={searchTerm}
               onChange={handleSearchChange}
-              // No need for keyPress handler with real-time search
+             
             />
           </Paper>
         </Toolbar>
@@ -117,20 +118,25 @@ export default function Gallery() {
             <CircularProgress />
           </Box>
         ) : (
-          <Grid container spacing={3}>
-            {posts.length > 0 ? posts.map((post) => (
-              <Grid item xs={12} sm={6} md={4} key={post.id}>
-                <GalleryCard 
-                  post={post} 
-                  imageData={post.imageData} 
-                />
-              </Grid>
-            )) : (
-              <Box width="100%" textAlign="center" py={4}>
-                <Typography>No posts found</Typography>
-              </Box>
-            )}
-          </Grid>
+          posts.length > 0 ? (
+            <Box >
+              <Masonry columns={{ xs: 1, sm: 2, md: 3, lg: 3 }} spacing={6} className='gallery-masonry-container'>
+                {posts.map((post) => (
+                  <div key={post.id} style={{ margin: '0 0 16px 0' }}>
+                    <GalleryCard 
+                      post={post} 
+                      imageData={post.imageData} 
+                      className='gallery-card'
+                    />
+                  </div>
+                ))}
+              </Masonry>
+            </Box>
+          ) : (
+            <Box width="100%" textAlign="center" py={4}>
+              <Typography>No posts found</Typography>
+            </Box>
+          )
         )}
         
         {totalPages > 1 && (

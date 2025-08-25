@@ -708,9 +708,10 @@ export default function AdminPanel() {
             onClick={handleProfileMenuOpen}
             color="inherit"
           >
-            <Avatar className="admin-avatar">
-              {user?.name?.charAt(0) || "A"}
-            </Avatar>
+            <div className="user-account">
+                           <Avatar className="user-avatar">{user.name ? user.name.charAt(0) : 'U'}</Avatar>
+                           <div className="username">{user.name}</div>
+                         </div>
           </IconButton>
           <Menu
             anchorEl={anchorEl}

@@ -35,4 +35,9 @@
 .post-content{
   margin: 10rem 0;
   line-height: 1.5;
+   white-space: pre-wrap;
+   overflow-wrap: break-word;
+   font-size: 1.5rem;
+   text-align: left;
+   color: var(--text-color);
 }

@@ -163,7 +163,7 @@ export default function UserLogin() {
 
           <Typography variant="body2" className="signup-prompt">
             Don't have an account?{' '}
-            <Link to="/register" className="signup-link">
+            <Link to="/sign-up" className="signup-link">
               Sign up
             </Link>
           </Typography>

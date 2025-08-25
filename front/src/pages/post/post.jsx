@@ -99,22 +99,20 @@ export default function Post() {
         )}
 
         <CardContent>
-          <Typography variant="body2" color="text.secondary" fontSize="1.5rem" className='post-content'>
-            {post.content}
-          </Typography>
+            <Typography 
+    variant="body1" 
+    className='post-content'
+    sx={{
+      whiteSpace: "pre-wrap",
+      overflowWrap: "break-word",
+      fontSize: "1.5rem",
+      color: "text.secondary"
+    }}
+  >
+    {post.content}
+  </Typography>
           
-          {post.tags && post.tags.length > 0 && (
-            <Box mt={4}>
-              <Typography variant="subtitle2">Tags:</Typography>
-              <Box display="flex" gap={1} mt={1}>
-                {post.tags.map((tag, index) => (
-                  <Typography key={index} variant="body2" className="post-tag">
-                    #{tag}
-                  </Typography>
-                ))}
-              </Box>
-            </Box>
-          )}
+
         </CardContent>
       </Card>
     </Box>
